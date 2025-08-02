@@ -1,13 +1,14 @@
-package com.example;
+package com.telegramnotifier;
 
 import net.runelite.client.RuneLite;
 import net.runelite.client.externalplugins.ExternalPluginManager;
 
-public class ExamplePluginTest
+@SuppressWarnings("unchecked")
+public class TelegramNotifierPluginTest
 {
 	public static void main(String[] args) throws Exception
 	{
-		ExternalPluginManager.loadBuiltin(ExamplePlugin.class);
+		ExternalPluginManager.loadBuiltin(TelegramNotifierPlugin.class);
 		RuneLite.main(args);
 	}
 }
