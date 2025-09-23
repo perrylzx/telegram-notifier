@@ -34,14 +34,40 @@ public class TelegramNotifierPlugin extends Plugin
 
 	@Inject
 	private TelegramNotifierService telegramService;
+	private String buildPattern() {
+		String keywords = config.keywords().trim();
+		if (keywords.isEmpty()) {
+			return "a^"; // Match nothing if no keywords specified
+		}
+		
+		String[] keywordArray = keywords.split(",");
+		StringBuilder pattern = new StringBuilder("(?i).*?\\b(");
+		
+		for (int i = 0; i < keywordArray.length; i++) {
+			String keyword = keywordArray[i].trim();
+			if (!keyword.isEmpty()) {
+				// Escape special regex characters in the keyword
+				keyword = keyword.replaceAll("[\\[\\](){}.*+?^$|\\\\]", "\\\\$0");
+				pattern.append(keyword);
+				if (i < keywordArray.length - 1) {
+					pattern.append("|");
+				}
+			}
+		}
+		
+		pattern.append(")\\b.*?");
+		return pattern.toString();
+	}
 
 	@SuppressWarnings("unused")
 	@Subscribe
 	public void onChatMessage(ChatMessage event)
 	{
-		String message = event.getMessage();
+		String rawMessage = event.getMessage();
+		
+		final String message = rawMessage.replaceAll("<[^>]*>", "");
 
-		if (message.matches(config.pattern()))
+		if (message.matches(buildPattern()))
 		{
 			executor.execute(() -> telegramService.sendMessage(message));
 		}

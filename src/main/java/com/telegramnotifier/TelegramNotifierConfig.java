@@ -8,15 +8,14 @@ import net.runelite.client.config.ConfigItem;
 public interface TelegramNotifierConfig extends Config
 {
 	@ConfigItem(
-			keyName = "pattern",
-			name = "Message Pattern",
-			description = "Regex pattern for messages to send to Telegram"
+			keyName = "keywords",
+			name = "Keywords",
+			description = "Comma-separated list of keywords to match in messages (e.g., 'superior, granite maul, abyssal whip')"
 	)
-
-
-	default String pattern() {
-		return ".*valuable drop*";
+	default String keywords() {
+		return "superior, granite maul, abyssal whip, abyssal dagger, low prayer, goading potion";
 	}
+
 	@ConfigItem(
 			keyName = "telegramBotToken",
 			name = "Telegram Bot Token",

@@ -52,7 +52,37 @@ This RuneLite plugin sends Telegram messages to your phone when specific in-game
 3. Open the plugin configuration:
    - Paste your **Bot Token** from Step 1.
    - Paste your **Chat ID** from Step 2.
-4. Done! You’ll now receive Telegram alerts when your triggers fire.
+   - Set your **Message Pattern** (see below for details).
+4. Done! You'll now receive Telegram alerts when your triggers fire.
+
+---
+
+## 🎯 Setting Up Keywords
+
+The plugin uses **keyword matching** to detect when to send notifications. Simply enter a comma-separated list of words or phrases you want to track.
+
+### 📝 Examples
+
+**For rare drops:**
+```
+superior, granite maul, abyssal whip, abyssal dagger, dragon dagger
+```
+
+**For prayer warnings:**
+```
+low prayer, prayer potion, restore potion
+```
+
+**For combat alerts:**
+```
+the effects of your goading potion, low health, low run energy
+```
+
+### 💡 Tips
+
+- **Case-insensitive**: `"ABYSSAL WHIP"` and `"abyssal whip"` both work
+- **Whole words only**: `"whip"` won't match `"whipped"` 
+- **Multiple words**: Just separate with commas (e.g., `granite maul, abyssal whip`)
 
 ---
 
@@ -68,6 +98,13 @@ This RuneLite plugin sends Telegram messages to your phone when specific in-game
 - **Not receiving messages?**
   - Make sure you've messaged your bot at least once on Telegram.
   - Double-check your bot token and chat ID.
+  - Verify your keywords are set correctly (not empty).
+- **Getting too many notifications?**
+  - Make your keywords more specific (e.g., `"abyssal whip"` instead of just `"whip"`).
+  - Remove common words that appear in many messages.
+- **Not getting notifications for specific items?**
+  - Check that the exact text appears in the game chat.
+  - Try adding variations (e.g., both `"dragon dagger"` and `"dragon dagger (p++)"`).
 - **Still stuck?**
   - Enable developer logs in RuneLite and check for Telegram API errors.
 
