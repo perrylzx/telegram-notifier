@@ -3,6 +3,7 @@ package com.telegramnotifier;
 import com.google.inject.Provides;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.client.config.ConfigManager;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import javax.inject.Inject;
@@ -34,6 +35,29 @@ public class TelegramNotifierPlugin extends Plugin
 
 	@Inject
 	private TelegramNotifierService telegramService;
+
+	private String cachedPattern;
+
+	@Override
+	protected void startUp() throws Exception
+	{
+		rebuildPattern();
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("telegramnotifier") && event.getKey().equals("keywords"))
+		{
+			rebuildPattern();
+		}
+	}
+
+	private void rebuildPattern()
+	{
+		cachedPattern = buildPattern();
+	}
+
 	private String buildPattern() {
 		String keywords = config.keywords().trim();
 		if (keywords.isEmpty()) {
@@ -67,7 +91,7 @@ public class TelegramNotifierPlugin extends Plugin
 		
 		final String message = rawMessage.replaceAll("<[^>]*>", "");
 
-		if (message.matches(buildPattern()))
+		if (message.matches(cachedPattern))
 		{
 			executor.execute(() -> telegramService.sendMessage(message));
 		}
