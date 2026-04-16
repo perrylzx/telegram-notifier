@@ -1,6 +1,6 @@
 # 📬 RuneLite Telegram Notifier Plugin
 
-This RuneLite plugin sends Telegram messages to your phone when specific in-game events happen — like rare loot drops, level-ups, or anything else you want to track.
+Ever wanted to get messages on your phone so you don't miss a rare drop from slayer or when you need to click when star mining? This plugin sends customizable alerts to your Telegram account based on in-game chat messages.
 
 ---
 
@@ -30,6 +30,8 @@ This RuneLite plugin sends Telegram messages to your phone when specific in-game
    ```
 
 🔒 **Save this token** — you’ll need it for the plugin.
+5. Click on the link starting with t.me to open your bot and send it a message (e.g. "Hello"). This activates the bot and allows it to send you messages.
+
 
 ---
 
